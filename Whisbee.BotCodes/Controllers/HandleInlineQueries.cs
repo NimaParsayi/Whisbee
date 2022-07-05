@@ -1,28 +1,37 @@
-﻿namespace Whisbee.Controllers;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Telegram.Bot;
+using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.InlineQueryResults;
+using Telegram.Bot.Types.ReplyMarkups;
 
-public class HandleInlineQueries
+namespace Whisbee.Controllers
 {
-    public async Task CheckText(ITelegramBotClient bot, InlineQuery query)
+
+    public class HandleInlineQueries
     {
-        var queryId = query.Id;
-        var queryFrom = query.From;
-        var queryText = query.Query;
-
-        InlineQueryResult[] results = { };
-
-        if (queryText.Trim() == "")
+        public async Task CheckText(ITelegramBotClient bot, InlineQuery query)
         {
-            var botInGroupText = $"🐝 ویسبی | ربات ارسال پیام محرمانه در گروه" +
-                $"\n\n🤔 چطور استفاده کنم؟" +
-                $"\n- استفاده از ویسبی خیلی سادست ! کافیه توی گروه روی شخصی که میخوای ریپلای کنی بعد با نوشتن @WhisbeeBot و نوشتن پیامت کلیک روی پاپ‌آپ ارسالش کنی ! همین." +
-                $"\n\n🗞️ اخبار ویسبی:" +
-                $"\n🆔 @WhisbeeNews";
-            var botNotInGroupText = $"🐝 ویسبی | ربات ارسال پیام محرمانه در گروه" +
-                                 $"\n\n🤔 چطور استفاده کنم؟" +
-                                 $"\n- استفاده از ویسبی خیلی سادست ! کافیه توی گروه روی شخصی که میخوای ریپلای کنی بعد با نوشتن @WhisbeeBot و نوشتن پیامت کلیک روی پاپ‌آپ ارسالش کنی ! همین." +
-                                 $"\n\n🗞️ اخبار ویسبی:" +
-                                 $"\n🆔 @WhisbeeNews";
-            results = new InlineQueryResult[] {
+            var queryId = query.Id;
+            var queryFrom = query.From;
+            var queryText = query.Query;
+
+            InlineQueryResult[] results = { };
+
+            if (queryText.Trim() == "")
+            {
+                var botInGroupText = $"🐝 ویسبی | ربات ارسال پیام محرمانه در گروه" +
+                    $"\n\n🤔 چطور استفاده کنم؟" +
+                    $"\n- استفاده از ویسبی خیلی سادست ! کافیه توی گروه روی شخصی که میخوای ریپلای کنی بعد با نوشتن @WhisbeeBot و نوشتن پیامت کلیک روی پاپ‌آپ ارسالش کنی ! همین." +
+                    $"\n\n🗞️ اخبار ویسبی:" +
+                    $"\n🆔 @WhisbeeNews";
+                var botNotInGroupText = $"🐝 ویسبی | ربات ارسال پیام محرمانه در گروه" +
+                                     $"\n\n🤔 چطور استفاده کنم؟" +
+                                     $"\n- استفاده از ویسبی خیلی سادست ! کافیه توی گروه روی شخصی که میخوای ریپلای کنی بعد با نوشتن @WhisbeeBot و نوشتن پیامت کلیک روی پاپ‌آپ ارسالش کنی ! همین." +
+                                     $"\n\n🗞️ اخبار ویسبی:" +
+                                     $"\n🆔 @WhisbeeNews";
+                results = new InlineQueryResult[] {
                 new InlineQueryResultArticle(
                     id: "inlineQueryHelpForAll",
                     title: "🐝 راهنمای روش اول",
@@ -47,19 +56,19 @@ public class HandleInlineQueries
                     ThumbWidth = 100,
                 },
             };
-        }
-        else
-        {
-            var text = $"🐝 این یک پیام محرمانه است ! " +
-                $"\n🤔 برای دیدن آن روی دکمه زیر کلیک کنید.";
-
-            if (queryText.Contains("@"))
+            }
+            else
             {
-                var querySplit = queryText.Split('@');
-                var message = querySplit.First();
-                var username = querySplit.Last();
-                var msg = await bot.SendTextMessageAsync(-1001711216736, message, ParseMode.Markdown);
-                results = new InlineQueryResult[] { new InlineQueryResultArticle("usernameWay", "📤 برای ارسال از طریق روش یوزرنیم کلیک کنید", new InputTextMessageContent(text))
+                var text = $"🐝 این یک پیام محرمانه است ! " +
+                    $"\n🤔 برای دیدن آن روی دکمه زیر کلیک کنید.";
+
+                if (queryText.Contains("@"))
+                {
+                    var querySplit = queryText.Split('@');
+                    var message = querySplit.First();
+                    var username = querySplit.Last();
+                    var msg = await bot.SendTextMessageAsync(-1001711216736, message, ParseMode.Markdown);
+                    results = new InlineQueryResult[] { new InlineQueryResultArticle("usernameWay", "📤 برای ارسال از طریق روش یوزرنیم کلیک کنید", new InputTextMessageContent(text))
                     {
                         Description = $"این پیام فقط برای فرد با یوزرنیم وارد شده قابل مشاهده است.",
                         ThumbUrl = "https://karijna.ir/download.php?q=NjJhZTFkYjhmMzk3MQ==",
@@ -74,11 +83,11 @@ public class HandleInlineQueries
                     })
                     }
                 };
-            }
-            else if (queryText.Length >= 255)
-            {
-                results = new InlineQueryResult[]
+                }
+                else if (queryText.Length >= 255)
                 {
+                    results = new InlineQueryResult[]
+                    {
                     new InlineQueryResultArticle($"limitReached", "پیام شما بیش از حد طولانیست !",
                         new InputTextMessageContent("❌ این پیام به درستی ارسال نشده است !"))
                     {
@@ -87,12 +96,12 @@ public class HandleInlineQueries
                         ThumbHeight = 100,
                         ThumbWidth = 100
                     }
-                };
-            }
-            else
-            {
-                var msg = await bot.SendTextMessageAsync(-1001711216736, query.Query, ParseMode.Markdown);
-                results = new InlineQueryResult[] { new InlineQueryResultArticle("replyWay", "📤 برای ارسال از طریق روش ریپلای کلیک کنید", new InputTextMessageContent(text))
+                    };
+                }
+                else
+                {
+                    var msg = await bot.SendTextMessageAsync(-1001711216736, query.Query, ParseMode.Markdown);
+                    results = new InlineQueryResult[] { new InlineQueryResultArticle("replyWay", "📤 برای ارسال از طریق روش ریپلای کلیک کنید", new InputTextMessageContent(text))
                     {
                         Description = $"این پیام فقط برای شخصی که ریپلای شده قابل مشاهده است.",
                         ThumbUrl = "https://karijna.ir/download.php?q=NjJhZTFkYjhmMzk3MQ==",
@@ -107,14 +116,15 @@ public class HandleInlineQueries
                         })
                     }
                 };
+                }
             }
+
+            await bot.AnswerInlineQueryAsync(
+                inlineQueryId: queryId,
+                results: results,
+                cacheTime: 10
+            );
         }
 
-        await bot.AnswerInlineQueryAsync(
-            inlineQueryId: queryId,
-            results: results,
-            cacheTime: 10
-        );
     }
-
 }
