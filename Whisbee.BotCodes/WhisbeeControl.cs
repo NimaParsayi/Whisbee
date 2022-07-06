@@ -15,7 +15,7 @@ namespace Whisbee
         private static ITelegramBotClient bot;
         public static async Task Start()
         {
-            bot = new TelegramBotClient("5548331573:AAEBA_qAyFcjKcyGSUwR3Z-YWnEr2MYHTpY");
+            bot = new TelegramBotClient("5548331573:AAFlxj28xDPwasXdcmg6ZUhZBocCOAgWy78");
             using var cts = new CancellationTokenSource();
             var cancellationToken = cts.Token;
 
