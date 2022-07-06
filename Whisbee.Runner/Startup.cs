@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Telegram.Bot;
 using Whisbee.Runner.Services;
 
 namespace Whisbee.Runner
@@ -20,12 +21,19 @@ namespace Whisbee.Runner
         }
 
         public IConfiguration Configuration { get; }
+        public BotConfiguration BotConfig { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            BotConfig = Configuration.GetSection("BotConfiguration").Get<BotConfiguration>();
+            services.AddHostedService<ConfigureWebhook>(); 
+            services.AddHttpClient("tgwebhook")
+                .AddTypedClient<ITelegramBotClient>(httpClient => new TelegramBotClient(BotConfig.BotToken, httpClient));
+            services.AddScoped<HandleUpdateService>();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddRazorPages();
-            services.AddHostedService<ConfigureBot>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +59,10 @@ namespace Whisbee.Runner
 
             app.UseEndpoints(endpoints =>
             {
+                var token = BotConfig.BotToken;
+                endpoints.MapControllerRoute(name: "tgwebhook",
+                    pattern: $"bot/{token}",
+                    new { controller = "Webhook", action = "Post" });
                 endpoints.MapRazorPages();
             });
         }
