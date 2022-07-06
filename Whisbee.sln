@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Whisbee.BotCodes", "Whisbee.BotCodes\Whisbee.BotCodes.csproj", "{18135C02-26A6-4AC4-A6B5-5C8603AAC09B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Whisbee.BotCodes", "Whisbee.BotCodes\Whisbee.BotCodes.csproj", "{18135C02-26A6-4AC4-A6B5-5C8603AAC09B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Whisbee.ConsoleApp", "Whisbee.ConsoleApp\Whisbee.ConsoleApp.csproj", "{7E43F0E2-895A-4C0A-AA38-E9A2BB3E8416}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Whisbee.Runner", "Whisbee.Runner\Whisbee.Runner.csproj", "{784490A4-37E4-4E1F-BA77-6E3B011C7B7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{18135C02-26A6-4AC4-A6B5-5C8603AAC09B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18135C02-26A6-4AC4-A6B5-5C8603AAC09B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18135C02-26A6-4AC4-A6B5-5C8603AAC09B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7E43F0E2-895A-4C0A-AA38-E9A2BB3E8416}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7E43F0E2-895A-4C0A-AA38-E9A2BB3E8416}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7E43F0E2-895A-4C0A-AA38-E9A2BB3E8416}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7E43F0E2-895A-4C0A-AA38-E9A2BB3E8416}.Release|Any CPU.Build.0 = Release|Any CPU
+		{784490A4-37E4-4E1F-BA77-6E3B011C7B7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{784490A4-37E4-4E1F-BA77-6E3B011C7B7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{784490A4-37E4-4E1F-BA77-6E3B011C7B7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{784490A4-37E4-4E1F-BA77-6E3B011C7B7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

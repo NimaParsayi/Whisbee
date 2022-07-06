@@ -10,10 +10,10 @@ using Whisbee.Controllers;
 
 namespace Whisbee
 {
-    public static class Whisbee
+    public static class WhisbeeControl
     {
         private static ITelegramBotClient bot;
-        public static async Task Run()
+        public static async Task Start()
         {
             bot = new TelegramBotClient("5548331573:AAEBA_qAyFcjKcyGSUwR3Z-YWnEr2MYHTpY");
             using var cts = new CancellationTokenSource();
