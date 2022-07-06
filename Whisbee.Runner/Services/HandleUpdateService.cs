@@ -48,7 +48,7 @@ namespace Whisbee.Runner.Services
         private async Task BotOnMessageReceived(Message message)
         {
             _logger.LogInformation("Receive message type: {MessageType}", message.Type);
-
+            await new Whisbee.Controllers.HandleMessages().CheckMessage(_botClient, message);
         }
 
         // Process Inline Keyboard callback data
