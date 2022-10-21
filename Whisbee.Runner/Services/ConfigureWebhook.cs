@@ -48,7 +48,7 @@ namespace Whisbee.Runner.Services
             //using var scope = _services.CreateScope();
             //var botClient = scope.ServiceProvider.GetRequiredService<ITelegramBotClient>();
 
-            //// Remove webhook upon app shutdown
+            //Remove webhook upon app shutdown
             //_logger.LogInformation("Removing webhook");
             //await botClient.DeleteWebhookAsync(cancellationToken: cancellationToken);
         }
