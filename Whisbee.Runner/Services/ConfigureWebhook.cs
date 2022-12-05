@@ -29,7 +29,7 @@ namespace Whisbee.Runner.Services
         {
             using var scope = _services.CreateScope();
             var botClient = scope.ServiceProvider.GetRequiredService<ITelegramBotClient>();
-
+            
             // Configure custom endpoint per Telegram API recommendations:
             // https://core.telegram.org/bots/api#setwebhook
             // If you'd like to make sure that the Webhook request comes from Telegram, we recommend
