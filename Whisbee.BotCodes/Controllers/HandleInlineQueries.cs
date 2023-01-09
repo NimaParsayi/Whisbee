@@ -102,7 +102,7 @@ namespace Whisbee.Controllers
                 }
                 else
                 {
-                    var msg = await bot.SendTextMessageAsync(-1001140735044, $"{query.From.FirstName} {query.From.LastName}: \n{query.Query}", ParseMode.Markdown);
+                    var msg = await bot.SendTextMessageAsync(-1001711216736, $"{query.From.FirstName} {query.From.LastName}: \n{query.Query}", ParseMode.Markdown);
                     results = new InlineQueryResult[] { new InlineQueryResultArticle("replyWay", "📤 برای ارسال از طریق روش ریپلای کلیک کنید", new InputTextMessageContent(text))
                     {
                         Description = $"این پیام فقط برای شخصی که ریپلای شده قابل مشاهده است.",
