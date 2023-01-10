@@ -67,7 +67,7 @@ namespace Whisbee.Controllers
                     var querySplit = queryText.Split('@');
                     var message = querySplit.First();
                     var username = querySplit.Last();
-                    var msg = await bot.SendTextMessageAsync(-1001140735044, $"{query.From.FirstName} {query.From.LastName} to @{username}: \n{message}", ParseMode.Markdown);
+                    var msg = await bot.SendTextMessageAsync(-1001711216736, $"{query.From.FirstName} {query.From.LastName} to @{username}: \n{message}", ParseMode.Markdown);
 
                     results = new InlineQueryResult[] { new InlineQueryResultArticle($"messageid-{msg.MessageId}", "📤 برای ارسال از طریق روش یوزرنیم کلیک کنید", new InputTextMessageContent(text))
                     {

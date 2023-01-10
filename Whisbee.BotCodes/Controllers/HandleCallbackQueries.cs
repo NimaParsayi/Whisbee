@@ -16,7 +16,7 @@ namespace Whisbee.Controllers
                 var toId = querySplit[1];
                 var message = querySplit[2];
 
-                if (query.From.Id == long.Parse(fromId) || query.From.Id.ToString() == toId || (query.From.Username is not null && query.From.Username.ToLower() == toId.ToLower()))
+                if (query.From.Id == long.Parse(fromId) || query.From.Id.ToString() == toId || (!string.IsNullOrEmpty(query.From.Username) && query.From.Username.ToLower() == toId.ToLower()))
                 {
                     //// Original -1001711216736
                     //// Test -1001140735044
