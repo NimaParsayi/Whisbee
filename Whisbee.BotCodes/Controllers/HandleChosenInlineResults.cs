@@ -17,16 +17,20 @@ namespace Whisbee.Controllers
                 var text = query.First();
                 var username = query.Last();
                 var msgId = result.ResultId.Split('-')[1];
-                text = $"🐝 پیام جدید ! *{username}*، یه پیام از طرف *{result.From.FirstName}* داری.";
+                text = $"🐝 پیام جدید ! [{username}](https://t.me/{username})، یه پیام از طرف *{result.From.FirstName}* داری.";
 
                 await botClient.EditMessageTextAsync(result.InlineMessageId, text, ParseMode.Markdown, replyMarkup: new InlineKeyboardMarkup(new[]
                 {
                     new[]
                     {
                         InlineKeyboardButton.WithCallbackData("👀 خوندن پیام", $"show{result.From.Id}-{username}-{msgId}"),
-                        InlineKeyboardButton.WithUrl("🐝 کانال ویسبی", "https://WhisbeeNews.t.me"), 
+                        InlineKeyboardButton.WithUrl("🐝 کانال ویسبی", "https://WhisbeeNews.t.me"),
+                    },
+                    new []
+                    {
+                        InlineKeyboardButton.WithCallbackData("وضعیت پیام: ❌ خوانده نشده", "null"), 
                     }
-                }));
+                }), disableWebPagePreview: true);
             }
         }
     }

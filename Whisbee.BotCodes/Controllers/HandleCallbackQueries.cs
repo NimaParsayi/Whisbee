@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.ReplyMarkups;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Whisbee.Controllers
@@ -39,6 +41,25 @@ namespace Whisbee.Controllers
                         await bot.DeleteMessageAsync(groupId, msg.MessageId);
                         await bot.SendTextMessageAsync(groupId, $"{query.From.FirstName} Seen !",
                             replyToMessageId: int.Parse(message));
+                        long integerId = 0;
+                        long.TryParse(toId, out integerId);
+                        if (query.From.Id == integerId || query.From.Username == toId)
+                        {
+                            var keyboard = new InlineKeyboardMarkup(new[]
+                            {
+                                new[]
+                                {
+                                    InlineKeyboardButton.WithCallbackData("👀 خوندن پیام",
+                                        $"show{fromId}-{toId}-{message}"),
+                                    InlineKeyboardButton.WithUrl("🐝 کانال ویسبی", "https://WhisbeeNews.t.me"),
+                                },
+                                new[]
+                                {
+                                    InlineKeyboardButton.WithCallbackData("وضعیت پیام: ✅ خونده شده", "null"),
+                                }
+                            });
+                            await bot.EditMessageReplyMarkupAsync(query.InlineMessageId, keyboard);
+                        }
                     }
                     else
                     {

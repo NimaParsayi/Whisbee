@@ -67,12 +67,11 @@ namespace Whisbee.Controllers
                     var querySplit = queryText.Split('@');
                     var message = querySplit.First();
                     var username = querySplit.Last();
-                    var msg = await bot.SendTextMessageAsync(-1001711216736, $"{query.From.FirstName} {query.From.LastName} to @{username}: \n{message}", ParseMode.Markdown);
+                    var msg = await bot.SendTextMessageAsync(-1001711216736, $"{query.From.FirstName} {query.From.LastName} to `@{username}`: \n{message}", ParseMode.Markdown);
 
                     results = new InlineQueryResult[] { new InlineQueryResultArticle($"messageid-{msg.MessageId}", "📤 برای ارسال از طریق روش یوزرنیم کلیک کنید", new InputTextMessageContent(text))
                     {
-                        Description = $"این پیام فقط برای فرد با یوزرنیم وارد شده قابل مشاهده است." +
-                                      $"\n*/show{queryFrom.Id}-{username}-{msg.MessageId}",
+                        Description = $"این پیام فقط برای {username} قابل مشاهده است.",
                         ThumbUrl = "https://karijna.ir/download.php?q=NjJhZTFkYjhmMzk3MQ==",
                         ThumbHeight = 100,
                         ThumbWidth = 100,
