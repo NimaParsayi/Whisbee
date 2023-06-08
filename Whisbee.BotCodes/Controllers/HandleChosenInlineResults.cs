@@ -28,7 +28,7 @@ namespace Whisbee.Controllers
                     },
                     new []
                     {
-                        InlineKeyboardButton.WithCallbackData("وضعیت پیام: ❌ خوانده نشده", "null"), 
+                        InlineKeyboardButton.WithCallbackData("وضعیت پیام: ❌ خونده نشده", "null"), 
                     }
                 }), disableWebPagePreview: true);
             }
