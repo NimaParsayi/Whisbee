@@ -65,7 +65,7 @@ namespace Whisbee.Controllers
                     },
                 });
 
-                    await bot.SendTextMessageAsync(msg.Chat.Id, message, ParseMode.Markdown, replyMarkup: keyboard);
+                    await bot.SendTextMessageAsync(msg.Chat.Id, message, parseMode:ParseMode.Markdown, replyMarkup: keyboard);
                 }
             }
         }

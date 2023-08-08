@@ -1,26 +1,42 @@
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Telegram.Bot;
+using Whisbee.Runner.Controllers;
+using Whisbee.Runner.Services;
 
-namespace Whisbee.Runner
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+var builder = WebApplication.CreateBuilder(args);
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+// Setup Bot configuration
+var botConfigurationSection = builder.Configuration.GetSection(BotConfiguration.Configuration);
+builder.Services.Configure<BotConfiguration>(botConfigurationSection);
+
+var botConfiguration = botConfigurationSection.Get<BotConfiguration>();
+builder.Services.AddHttpClient("telegram_bot_client")
+                .AddTypedClient<ITelegramBotClient>((httpClient, sp) =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    BotConfiguration? botConfig = sp.GetConfiguration<BotConfiguration>();
+                    TelegramBotClientOptions options = new(botConfig.BotToken);
+                    return new TelegramBotClient(options, httpClient);
                 });
-    }
+
+builder.Services.AddScoped<UpdateHandlers>();
+builder.Services.AddHostedService<ConfigureWebhook>();
+builder.Services
+    .AddControllers()
+    .AddNewtonsoftJson();
+
+var app = builder.Build();
+app.MapBotWebhookRoute<BotController>(route: botConfiguration.Route);
+app.MapControllers();
+app.Run();
+
+public class BotConfiguration
+{
+    public static readonly string Configuration = "BotConfiguration";
+
+    public string BotToken { get; init; } = default!;
+    public string HostAddress { get; init; } = default!;
+    public string Route { get; init; } = default!;
+    public string SecretToken { get; init; } = default!;
 }

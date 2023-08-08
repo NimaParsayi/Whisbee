@@ -1,56 +1,57 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
 
-namespace Whisbee.Runner.Services
+namespace Whisbee.Runner.Services;
+
+public class ConfigureWebhook : IHostedService
 {
-    public class ConfigureWebhook : IHostedService
+    private readonly ILogger<ConfigureWebhook> _logger;
+    private readonly IServiceProvider _serviceProvider;
+    private readonly BotConfiguration _botConfig;
+
+    public ConfigureWebhook(
+        ILogger<ConfigureWebhook> logger,
+        IServiceProvider serviceProvider,
+        IOptions<BotConfiguration> botOptions)
     {
-        private readonly ILogger<ConfigureWebhook> _logger;
-        private readonly IServiceProvider _services;
-        private readonly BotConfiguration _botConfig;
+        _logger = logger;
+        _serviceProvider = serviceProvider;
+        _botConfig = botOptions.Value;
+    }
 
-        public ConfigureWebhook(ILogger<ConfigureWebhook> logger,
-            IServiceProvider serviceProvider,
-            IConfiguration configuration)
-        {
-            _logger = logger;
-            _services = serviceProvider;
-            _botConfig = configuration.GetSection("BotConfiguration").Get<BotConfiguration>();
-        }
+    public async Task StartAsync(CancellationToken cancellationToken)
+    {
+        using var scope = _serviceProvider.CreateScope();
+        var botClient = scope.ServiceProvider.GetRequiredService<ITelegramBotClient>();
 
-        public async Task StartAsync(CancellationToken cancellationToken)
-        {
-            using var scope = _services.CreateScope();
-            var botClient = scope.ServiceProvider.GetRequiredService<ITelegramBotClient>();
-            
-            // Configure custom endpoint per Telegram API recommendations:
-            // https://core.telegram.org/bots/api#setwebhook
-            // If you'd like to make sure that the Webhook request comes from Telegram, we recommend
-            // using a secret path in the URL, e.g. https://www.example.com/<token>.
-            // Since nobody else knows your bot's token, you can be pretty sure it's us.
-            var webhookAddress = @$"{_botConfig.HostAddress}/bot/{_botConfig.BotToken}";
-            _logger.LogInformation("Setting webhook: {WebhookAddress}", webhookAddress);
-            await botClient.SetWebhookAsync(
-                url: webhookAddress,
-                allowedUpdates: Array.Empty<UpdateType>(),
-                cancellationToken: cancellationToken);
-        }
+        // Configure custom endpoint per Telegram API recommendations:
+        // https://core.telegram.org/bots/api#setwebhook
+        // If you'd like to make sure that the webhook was set by you, you can specify secret data
+        // in the parameter secret_token. If specified, the request will contain a header
+        // "X-Telegram-Bot-Api-Secret-Token" with the secret token as content.
+        var webhookAddress = $"{_botConfig.HostAddress}{_botConfig.Route}";
+        _logger.LogInformation("Setting webhook: {WebhookAddress}", webhookAddress);
+        await botClient.SetWebhookAsync(
+            url: webhookAddress,
+            allowedUpdates: Array.Empty<UpdateType>(),
+            secretToken: _botConfig.SecretToken,
+            cancellationToken: cancellationToken);
+    }
 
-        public async Task StopAsync(CancellationToken cancellationToken)
-        {
-            //using var scope = _services.CreateScope();
-            //var botClient = scope.ServiceProvider.GetRequiredService<ITelegramBotClient>();
+    public async Task StopAsync(CancellationToken cancellationToken)
+    {
+        using var scope = _serviceProvider.CreateScope();
+        var botClient = scope.ServiceProvider.GetRequiredService<ITelegramBotClient>();
 
-            //Remove webhook upon app shutdown
-            //_logger.LogInformation("Removing webhook");
-            //await botClient.DeleteWebhookAsync(cancellationToken: cancellationToken);
-        }
+        // Remove webhook on app shutdown
+        _logger.LogInformation("Removing webhook");
+        await botClient.DeleteWebhookAsync(cancellationToken: cancellationToken);
     }
 }

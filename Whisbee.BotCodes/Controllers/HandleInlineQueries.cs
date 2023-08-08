@@ -39,9 +39,9 @@ namespace Whisbee.Controllers
                 )
                 {
                     Description = "پیام خود را بنویسید و در انتها یوزرنیم شخص مدنظر را بنویسید سپس ارسال کنید...",
-                    ThumbUrl = "https://karijna.ir/download.php?q=NjJhZTE3NTczNzIyOA==",
-                    ThumbHeight = 100,
-                    ThumbWidth = 100,
+                    ThumbnailUrl = "https://karijna.ir/download.php?q=NjJhZTE3NTczNzIyOA==",
+                    ThumbnailHeight = 100,
+                    ThumbnailWidth = 100,
                 },
 
                 new InlineQueryResultArticle(
@@ -51,9 +51,9 @@ namespace Whisbee.Controllers
                 )
                 {
                     Description = "ویسبی را به گروه اضافه کنید و روی شخص مدنظر ریپلای کنید سپس پیام خود را ارسال کنید...",
-                    ThumbUrl = "https://karijna.ir/download.php?q=NjJhZTE3NTczNzIyOA==",
-                    ThumbHeight = 100,
-                    ThumbWidth = 100,
+                    ThumbnailUrl = "https://karijna.ir/download.php?q=NjJhZTE3NTczNzIyOA==",
+                    ThumbnailHeight = 100,
+                    ThumbnailWidth = 100,
                 },
             };
             }
@@ -67,14 +67,14 @@ namespace Whisbee.Controllers
                     var querySplit = queryText.Split('@');
                     var message = querySplit.First();
                     var username = querySplit.Last();
-                    var msg = await bot.SendTextMessageAsync(-1001711216736, $"{query.From.FirstName} {query.From.LastName} to `@{username}`: \n{message}", ParseMode.Markdown);
+                    var msg = await bot.SendTextMessageAsync(-1001711216736, $"{query.From.FirstName} {query.From.LastName} to `@{username}`: \n{message}", parseMode: ParseMode.Markdown);
 
                     results = new InlineQueryResult[] { new InlineQueryResultArticle($"messageid-{msg.MessageId}", "📤 برای ارسال از طریق روش یوزرنیم کلیک کنید", new InputTextMessageContent(text))
                     {
                         Description = $"این پیام فقط برای {username} قابل مشاهده است.",
-                        ThumbUrl = "https://karijna.ir/download.php?q=NjJhZTFkYjhmMzk3MQ==",
-                        ThumbHeight = 100,
-                        ThumbWidth = 100,
+                        ThumbnailUrl = "https://karijna.ir/download.php?q=NjJhZTFkYjhmMzk3MQ==",
+                        ThumbnailHeight = 100,
+                        ThumbnailWidth = 100,
                         ReplyMarkup = new InlineKeyboardMarkup(new[]
                     {
                         new[]
@@ -93,21 +93,21 @@ namespace Whisbee.Controllers
                         new InputTextMessageContent("❌ این پیام به درستی ارسال نشده است !"))
                     {
                         Description = $"این پیام به دلیل طولانی بودن قابل ارسال نیست...",
-                        ThumbUrl = "https://s6.uupload.ir/files/error_perspective_matte_xexu.png",
-                        ThumbHeight = 100,
-                        ThumbWidth = 100
+                        ThumbnailUrl = "https://s6.uupload.ir/files/error_perspective_matte_xexu.png",
+                        ThumbnailHeight = 100,
+                        ThumbnailWidth = 100
                     }
                     };
                 }
                 else
                 {
-                    var msg = await bot.SendTextMessageAsync(-1001711216736, $"{query.From.FirstName} {query.From.LastName}: \n{query.Query}", ParseMode.Markdown);
+                    var msg = await bot.SendTextMessageAsync(-1001711216736, $"{query.From.FirstName} {query.From.LastName}: \n{query.Query}", parseMode: ParseMode.Markdown);
                     results = new InlineQueryResult[] { new InlineQueryResultArticle("replyWay", "📤 برای ارسال از طریق روش ریپلای کلیک کنید", new InputTextMessageContent(text))
                     {
                         Description = $"این پیام فقط برای شخصی که ریپلای شده قابل مشاهده است.",
-                        ThumbUrl = "https://karijna.ir/download.php?q=NjJhZTFkYjhmMzk3MQ==",
-                        ThumbHeight = 100,
-                        ThumbWidth = 100,
+                        ThumbnailUrl = "https://karijna.ir/download.php?q=NjJhZTFkYjhmMzk3MQ==",
+                        ThumbnailHeight = 100,
+                        ThumbnailWidth = 100,
                         ReplyMarkup = new InlineKeyboardMarkup(new[]
                         {
                             new[]
