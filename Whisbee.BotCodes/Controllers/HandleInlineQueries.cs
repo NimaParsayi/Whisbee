@@ -34,11 +34,11 @@ namespace Whisbee.Controllers
                 results = new InlineQueryResult[] {
                 new InlineQueryResultArticle(
                     id: "inlineQueryHelpForAll",
-                    title: "🐝 راهنمای روش اول",
+                    title: "🐝 راهنمای روش نام کاربری",
                     inputMessageContent: new InputTextMessageContent(botNotInGroupText)
                 )
                 {
-                    Description = "پیام خود را بنویسید و در انتها یوزرنیم شخص مدنظر را بنویسید سپس ارسال کنید...",
+                    Description = "پیامتو بنویس آخرش هم با @ نام‌کابری کسی که میخوای بهش پیام بدی رو بنویس",
                     ThumbnailUrl = "https://karijna.ir/download.php?q=NjJhZTE3NTczNzIyOA==",
                     ThumbnailHeight = 100,
                     ThumbnailWidth = 100,
@@ -46,11 +46,11 @@ namespace Whisbee.Controllers
 
                 new InlineQueryResultArticle(
                     id:  "inlineQueryHelpForAddedInGroups",
-                    title: "🐝 راهنمای روش دوم (ساده تر)",
+                    title: "🐝 راهنمای روش ریپلای (ساده تر)",
                     inputMessageContent: new InputTextMessageContent(botInGroupText)
                 )
                 {
-                    Description = "ویسبی را به گروه اضافه کنید و روی شخص مدنظر ریپلای کنید سپس پیام خود را ارسال کنید...",
+                    Description = "روی شخص مدنظرت ریپلای کن و پیامتو بنویس (برای این روش ویسبی باید تو گروه باشه)",
                     ThumbnailUrl = "https://karijna.ir/download.php?q=NjJhZTE3NTczNzIyOA==",
                     ThumbnailHeight = 100,
                     ThumbnailWidth = 100,
@@ -89,7 +89,7 @@ namespace Whisbee.Controllers
                 {
                     results = new InlineQueryResult[]
                     {
-                    new InlineQueryResultArticle($"limitReached", "پیام شما بیش از حد طولانیست !",
+                    new InlineQueryResultArticle($"limitReached", "پیامت خیلی طولانیه نمیتونم بفرستمش !",
                         new InputTextMessageContent("❌ این پیام به درستی ارسال نشده است !"))
                     {
                         Description = $"این پیام به دلیل طولانی بودن قابل ارسال نیست...",
