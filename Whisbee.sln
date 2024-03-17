@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Whisbee.BotCodes", "Whisbee
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Whisbee.Runner", "Whisbee.Runner\Whisbee.Runner.csproj", "{784490A4-37E4-4E1F-BA77-6E3B011C7B7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Whisbee.Polling", "Whisbee.Polling\Whisbee.Polling.csproj", "{088875B6-35B0-4BB6-B23F-C25E4FFDFF4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Whisbee.Polling", "Whisbee.Polling\Whisbee.Polling.csproj", "{FBE4D20E-3B31-4556-AC9E-9A0F984A266A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{784490A4-37E4-4E1F-BA77-6E3B011C7B7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{784490A4-37E4-4E1F-BA77-6E3B011C7B7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{784490A4-37E4-4E1F-BA77-6E3B011C7B7C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{088875B6-35B0-4BB6-B23F-C25E4FFDFF4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{088875B6-35B0-4BB6-B23F-C25E4FFDFF4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{088875B6-35B0-4BB6-B23F-C25E4FFDFF4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{088875B6-35B0-4BB6-B23F-C25E4FFDFF4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBE4D20E-3B31-4556-AC9E-9A0F984A266A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBE4D20E-3B31-4556-AC9E-9A0F984A266A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBE4D20E-3B31-4556-AC9E-9A0F984A266A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBE4D20E-3B31-4556-AC9E-9A0F984A266A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
