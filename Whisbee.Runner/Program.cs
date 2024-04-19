@@ -27,7 +27,7 @@ builder.Services
     .AddNewtonsoftJson();
 
 var app = builder.Build();
-app.MapBotWebhookRoute<BotController>(route: botConfiguration.Route);
+app.MapBotWebhookRoute<BotController>(route: botConfigurationSection.Get<BotConfiguration>().Route);
 app.MapControllers();
 app.Run();
 
